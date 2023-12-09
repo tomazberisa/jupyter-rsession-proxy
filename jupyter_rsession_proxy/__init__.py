@@ -52,7 +52,9 @@ def get_system_user():
 
 def setup_rserver():
     def _get_env(port):
-        return dict(USER=get_system_user())
+        existing_env = os.environ.copy()
+        existing_env["USER"] = get_system_user()
+        return existing_env
 
     def db_config(db_dir):
         '''
