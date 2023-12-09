@@ -54,6 +54,8 @@ def setup_rserver():
     def _get_env(port):
         existing_env = os.environ.copy()
         existing_env["USER"] = get_system_user()
+        with open("/tmp/rserver_env", "w") as f:
+            f.write(str(existing_env))
         return existing_env
 
     def db_config(db_dir):
@@ -127,6 +129,8 @@ def setup_rserver():
 
 def setup_rsession():
     def _get_env(port):
+        with open("/tmp/rsession_env", "w") as f:
+            f.write(str(os.environ))
         # Detect various environment variables rsession requires to run
         # Via rstudio's src/cpp/core/r_util/REnvironmentPosix.cpp
         cmd = ['R', '--slave', '--vanilla', '-e',
